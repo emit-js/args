@@ -1,6 +1,6 @@
 # alias
 
-dot-event argument aliases
+[dot-event](https://github.com/dot-event/dot-event#readme) [argument](https://github.com/dot-event/dot-event#emit-argument) aliases
 
 ![alias](alias.gif)
 
@@ -19,7 +19,7 @@ require("@dot-event/alias")(dot)
 
 ## Usage
 
-Typically your composer will add the argument aliases for the event it defines using `dot.state.alias`:
+Typically your [composer](https://github.com/dot-event/dot-event#composer-pattern) will add the [argument](https://github.com/dot-event/dot-event#emit-argument) aliases for the event it defines using `dot.state.alias`:
 
 ```js
 export default function(dot) {
