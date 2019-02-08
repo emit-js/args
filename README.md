@@ -1,4 +1,4 @@
-# alias
+# @dot-event/alias
 
 [dot-event](https://github.com/dot-event/dot-event#readme) [argument](https://github.com/dot-event/dot-event#emit-argument) aliases
 

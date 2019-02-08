@@ -1,3 +1,6 @@
+/*prettier-ignore*/
+"use strict"
+
 module.exports = function(dot, opts) {
   if (dot.state.alias) {
     return
