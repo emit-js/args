@@ -3,14 +3,13 @@
 
 module.exports = function(dot, opts) {
   if (dot.state.alias) {
-    return
+    Object.assign(dot.state.alias, opts)
+  } else {
+    dot.state.alias = opts || {}
+    dot.state.parsedAlias = {}
+
+    dot.any(alias)
   }
-
-  opts = opts || {}
-  dot.state.alias = opts
-  dot.state.parsedAlias = {}
-
-  dot.any(alias)
 }
 
 function alias(prop, arg, dot, eventId) {

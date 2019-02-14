@@ -1,6 +1,6 @@
 {
-  "name": "alias",
-  "version": "0.0.1",
+  "name": "@dot-event/alias",
+  "version": "0.0.2",
   "description": "dot-event argument aliases",
   "keywords": [
     "dot-event",
