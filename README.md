@@ -19,18 +19,18 @@ require("@dot-event/alias")(dot)
 
 ## Usage
 
-Typically your [composer](https://github.com/dot-event/dot-event#composer-pattern) will add the [argument](https://github.com/dot-event/dot-event#emit-argument) aliases for the event it defines using `dot.state.alias`:
+Add [argument](https://github.com/dot-event/dot-event#emit-argument) aliases using `dot.alias`:
 
 ```js
 export default function(dot) {
-  if (dot.state.alias) {
-    dot.state.alias.myEvent = {
-      deploy: ["d", "de"],
-    }
-  }
+  dot.alias("myEvent", {
+    deploy: ["d", "de"],
+  })
 
-  dot.any("myEvent", function({ d, de, deploy }) {
+  dot.any("myEvent", function(prop, { d, de, deploy }) {
     // d, de, and deploy should have same value
   })
 }
 ```
+
+Always call `dot.alias` **before** defining the event, never after.

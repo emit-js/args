@@ -2,30 +2,38 @@
 "use strict"
 
 module.exports = function(dot, opts) {
-  if (dot.state.alias) {
-    Object.assign(dot.state.alias, opts)
-  } else {
-    dot.state.alias = opts || {}
-    dot.state.parsedAlias = {}
-
-    dot.any(alias)
-  }
-}
-
-function alias(prop, arg, dot, eventId) {
   var state = dot.state
-  var alias = state.alias
-  var parsed = state.parsedAlias
 
-  if (!alias[eventId]) {
+  if (state.alias) {
     return
   }
 
-  if (!parsed[eventId]) {
-    parsed[eventId] = parseAlias(alias[eventId])
+  state.alias = opts || {}
+  state.parsedAlias = {}
+
+  dot.any("alias", alias)
+}
+
+function alias(prop, arg, dot) {
+  dot.state.alias[prop.join(".")] = arg
+  dot.any(prop, aliasArgs)
+}
+
+function aliasArgs(prop, arg, dot, eventId) {
+  var id = [eventId].concat(prop).join("."),
+    state = dot.state
+  var alias = state.alias
+  var parsed = state.parsedAlias
+
+  if (!alias[id]) {
+    return
   }
 
-  var p = parsed[eventId]
+  if (!parsed[id]) {
+    parsed[id] = parseAlias(alias[id])
+  }
+
+  var p = parsed[id]
 
   for (var key in arg) {
     if (!p[key]) {

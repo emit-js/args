@@ -5,8 +5,9 @@ var alias = require("./alias"),
 
 beforeEach(function() {
   dot.reset()
-  alias(dot, { test: { a: ["b"] } })
-  alias(dot, { test2: { c: ["d"] } })
+  alias(dot)
+  dot.alias("test", { a: ["b"] })
+  dot.alias("test2", { c: ["d"] })
 })
 
 test("alias args", function() {
