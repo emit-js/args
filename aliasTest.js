@@ -1,10 +1,10 @@
 /* eslint-env jest */
 
 var alias = require("./alias"),
-  dot = require("dot-event")()
+  dot
 
 beforeEach(function() {
-  dot.reset()
+  dot = require("dot-event")()
   alias(dot)
   dot.alias("test", { a: ["b"] })
   dot.alias("test2", { c: ["d"] })
