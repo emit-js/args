@@ -20,20 +20,19 @@ function alias(prop, arg, dot) {
 }
 
 function aliasArgs(prop, arg, dot, eventId) {
-  var id = [eventId].concat(prop).join("."),
-    state = dot.state
+  var state = dot.state
   var alias = state.alias
   var parsed = state.parsedAlias
 
-  if (!alias[id]) {
+  if (!alias[eventId]) {
     return
   }
 
-  if (!parsed[id]) {
-    parsed[id] = parseAlias(alias[id])
+  if (!parsed[eventId]) {
+    parsed[eventId] = parseAlias(alias[eventId])
   }
 
-  var p = parsed[id]
+  var p = parsed[eventId]
 
   for (var key in arg) {
     if (!p[key]) {
