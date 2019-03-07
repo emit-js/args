@@ -32,15 +32,31 @@ function aliasArgs(prop, arg, dot, eventId) {
     parsed[eventId] = parseAlias(alias[eventId])
   }
 
-  var p = parsed[eventId]
+  var argCopy = Object.assign({}, arg),
+    p = parsed[eventId]
 
   for (var key in arg) {
     if (!p[key]) {
       continue
     }
 
-    p[key].forEach(function(k) {
-      arg[k] = arg[k] || arg[key]
+    var keys = p[key].concat([key]).sort()
+
+    var value = keys.reduce(function(memo, k) {
+      if (Array.isArray(argCopy[k])) {
+        memo = !memo || Array.isArray(memo) ? memo : [memo]
+        return argCopy[k].concat(memo || [])
+      } else if (typeof argCopy[k] === "object") {
+        return Object.assign(memo || {}, argCopy[k])
+      } else if (argCopy[k]) {
+        return argCopy[k]
+      } else {
+        return memo
+      }
+    }, undefined)
+
+    keys.forEach(function(k) {
+      arg[k] = value
     })
   }
 }
