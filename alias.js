@@ -15,7 +15,7 @@ module.exports = function(dot, opts) {
 }
 
 function alias(prop, arg, dot) {
-  dot.state.alias[prop.join(".")] = arg
+  dot.state.alias[prop[0]] = arg
   dot.any(prop, aliasArgs)
 }
 
