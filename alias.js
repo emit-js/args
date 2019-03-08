@@ -17,8 +17,7 @@ function alias(prop, arg, dot) {
 }
 
 function aliasArgs(prop, arg, dot, eventId) {
-  var state = dot.state
-  var alias = state.alias
+  var alias = dot.state.alias
 
   if (!alias[eventId]) {
     return
