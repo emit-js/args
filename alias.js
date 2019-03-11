@@ -45,8 +45,10 @@ function aliasArgs(prop, arg, dot, eventId) {
       }
     }, undefined)
 
-    keys.forEach(function(k) {
-      arg[k] = value
-    })
+    if (value !== undefined) {
+      keys.forEach(function(k) {
+        arg[k] = value
+      })
+    }
   }
 }
