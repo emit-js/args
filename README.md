@@ -1,36 +1,26 @@
-# @dot-event/alias
+# @dot-event/args
 
-[dot-event](https://github.com/dot-event/dot-event#readme) [argument](https://github.com/dot-event/dot-event#emit-argument) aliases
+[dot-event](https://github.com/dot-event/dot-event#readme) argument definitions
 
-![alias](alias.gif)
+![args](args.gif)
 
-## Install
+## Why
 
-```bash
-npm install dot-event @dot-event/alias
-```
-
-## Setup
-
-```js
-const dot = require("dot-event")()
-require("@dot-event/alias")(dot)
-```
+Aside from aliasing arguments, `dot.args` makes argument information observable.
 
 ## Usage
 
-Add [argument](https://github.com/dot-event/dot-event#emit-argument) aliases using `dot.alias`:
-
 ```js
-export default function(dot) {
-  dot.alias("myEvent", {
-    deploy: ["d", "de"],
-  })
+var dot = require("dot-event")()
+require("@dot-event/args")(dot)
 
-  dot.any("myEvent", function(prop, { d, de, deploy }) {
-    // d, de, and deploy should have same value
-  })
-}
+dot("args", "myEvent", {
+  o: ["opt", "opts", "This is a description"],
+})
+
+dot.any("myEvent", function(prop, { o, opt, opts }) {
+  // o, opt, and opts should have same value
+})
 ```
 
-Always call `dot.alias` **before** defining the event, never after.
+Call `dot.args` **before** defining the event.

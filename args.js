@@ -2,28 +2,28 @@
 "use strict"
 
 module.exports = function(dot) {
-  if (dot.alias) {
+  if (dot.args) {
     return
   }
 
-  dot.state.alias = {}
+  dot.state.args = {}
 
-  dot.any("alias", alias)
+  dot.any("args", args)
 }
 
-function alias(prop, arg, dot) {
-  dot.state.alias[prop[0]] = arg
+function args(prop, arg, dot) {
+  dot.state.args[prop[0]] = arg
   dot.any(prop[0], aliasArgs)
 }
 
 function aliasArgs(prop, arg, dot, eventId) {
-  var alias = dot.state.alias
+  var args = dot.state.args
 
-  if (!alias[eventId]) {
+  if (!args[eventId]) {
     return
   }
 
-  var eventAlias = alias[eventId]
+  var eventAlias = args[eventId]
 
   for (var key in eventAlias) {
     if (!eventAlias[key]) {

@@ -1,20 +1,19 @@
 {
-  "name": "@dot-event/alias",
+  "name": "@dot-event/args",
   "version": "0.0.9",
-  "description": "dot-event argument aliases",
+  "description": "dot-event argument definitions",
   "keywords": [
     "dot-event",
-    "argument",
-    "alias"
+    "argument"
   ],
   "author": "dot-event <oss@dot-event.io>",
-  "main": "alias.js",
+  "main": "args.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/dot-event/alias.git"
+    "url": "git+ssh://git@github.com/dot-event/args.git"
   },
   "license": "MIT",
-  "homepage": "https://github.com/dot-event/alias#readme",
+  "homepage": "https://github.com/dot-event/args#readme",
   "scripts": {
     "fix": "npm run lint -- --fix",
     "lint": "eslint --ignore-path .gitignore --ext=js .",
