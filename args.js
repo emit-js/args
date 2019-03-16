@@ -33,7 +33,7 @@ function aliasArgs(prop, arg, dot, eventId, signal) {
     var value = mergeAliasValues(arg, keys)
 
     if (value !== undefined || opts.default) {
-      arg[key] = value || opts.default
+      arg[key] = value === undefined ? opts.default : value
     }
   }
 }

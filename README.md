@@ -17,9 +17,15 @@ dot("args", "myEvent", [
     { alias: "m", default: "default value" },
   ],
 ])
+
+dot.any("myEvent", (props, arg) => {
+  expect(arg.myOption).toBe(true)
+})
+
+dot.myEvent({ m: true })
 ```
 
-Call `dot.args` **before** defining the event.
+Always define args **before** defining the event.
 
 ## What this does
 
