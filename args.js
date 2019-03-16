@@ -40,9 +40,9 @@ function aliasArgs(prop, arg, dot, eventId, signal) {
 
 function argEventState(arg) {
   return arg.reduce(function(memo, arr) {
-    var name = arr.shift()
-    var desc = arr.shift()
-    var opts = arr.shift()
+    var name = arr[0]
+    var desc = arr[1]
+    var opts = arr[2] || {}
     var alias = opts.alias
 
     if (alias) {
