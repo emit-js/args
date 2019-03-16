@@ -8,8 +8,29 @@ beforeEach(function() {
 
   args(dot)
 
-  dot.args("test", { a: ["b", "This is a description"] })
-  dot.args("test2", { c: ["d", "This is c description"] })
+  dot.args("test", {
+    arg: [["a", "This is a description", { alias: "b" }]],
+  })
+  dot.args("test2", {
+    arg: [["c", "This is c description", { alias: ["d"] }]],
+  })
+})
+
+test("state", function() {
+  expect(dot.state.args).toEqual({
+    test: {
+      a: {
+        alias: ["b"],
+        desc: "This is a description",
+      },
+    },
+    test2: {
+      c: {
+        alias: ["d"],
+        desc: "This is c description",
+      },
+    },
+  })
 })
 
 test("alias args", function() {
@@ -42,15 +63,4 @@ test("alias args (array concat)", function() {
 
   dot.test({ a: [1], b: [2] })
   dot.test2({ c: [3], d: [4] })
-})
-
-test("arg descriptions", function() {
-  expect(dot.state.args.descriptions).toEqual({
-    test: {
-      a: "This is a description",
-    },
-    test2: {
-      c: "This is c description",
-    },
-  })
 })

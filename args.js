@@ -6,38 +6,27 @@ module.exports = function(dot) {
     return
   }
 
-  dot.state.args = {
-    aliases: {},
-    descriptions: {},
-  }
+  dot.state.args = {}
 
   dot.any("args", args)
 }
 
 function args(prop, arg, dot) {
   var event = prop[0]
-
-  extractDesc(prop, arg, dot)
-  dot.state.args.aliases[event] = arg
-
+  dot.state.args[event] = buildOpts(arg)
   dot.any(event, aliasArgs)
 }
 
 function aliasArgs(prop, arg, dot, eventId) {
-  var aliases = dot.state.args.aliases
+  var args = dot.state.args[eventId]
 
-  if (!aliases[eventId]) {
+  if (!args) {
     return
   }
 
-  var alias = aliases[eventId]
-
-  for (var key in alias) {
-    if (!alias[key]) {
-      continue
-    }
-
-    var keys = alias[key].concat([key]).sort()
+  for (var key in args) {
+    var opts = args[key]
+    var keys = [key].concat(opts.alias).sort()
 
     var value = keys.reduce(function(memo, k) {
       if (Array.isArray(arg[k])) {
@@ -60,21 +49,19 @@ function aliasArgs(prop, arg, dot, eventId) {
   }
 }
 
-function extractDesc(prop, arg, dot) {
-  var desc,
-    event = prop[0]
+function buildOpts(arg) {
+  return arg.reduce(function(memo, arr) {
+    var name = arr.shift()
+    var desc = arr.shift()
+    var opts = arr.shift()
+    var alias = opts.alias
 
-  for (var key in arg) {
-    var alias = arg[key]
-
-    if (alias[alias.length - 1].match(/\s/)) {
-      desc = alias.pop()
+    if (alias) {
+      opts.alias = Array.isArray(alias) ? alias : [alias]
     }
 
-    if (desc) {
-      var argsDesc = dot.state.args.descriptions
-      argsDesc[event] = argsDesc[event] || {}
-      argsDesc[event][key] = desc
-    }
-  }
+    memo[name] = Object.assign({ desc: desc }, opts)
+
+    return memo
+  }, {})
 }
