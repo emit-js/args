@@ -18,7 +18,7 @@ dot("args", "myEvent", [
   ],
 ])
 
-dot.any("myEvent", (prop, arg) => {
+dot.any("myEvent", function(prop, arg) {
   expect(arg.myOption).toBe(true)
 })
 
