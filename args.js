@@ -13,43 +13,32 @@ module.exports = function(dot) {
 
 function args(prop, arg, dot) {
   var event = prop[0]
-  dot.state.args[event] = buildOpts(arg)
+  dot.state.args[event] = argEventState(arg)
   dot.any(event, aliasArgs)
 }
 
-function aliasArgs(prop, arg, dot, eventId) {
+function aliasArgs(prop, arg, dot, eventId, signal) {
   var args = dot.state.args[eventId]
 
   if (!args) {
     return
   }
 
+  arg = arg || {}
+  signal.arg = arg
+
   for (var key in args) {
     var opts = args[key]
     var keys = [key].concat(opts.alias).sort()
+    var value = mergeAliasValues(arg, keys)
 
-    var value = keys.reduce(function(memo, k) {
-      if (Array.isArray(arg[k])) {
-        memo = !memo || Array.isArray(memo) ? memo : [memo]
-        return arg[k].concat(memo || [])
-      } else if (typeof arg[k] === "object") {
-        return Object.assign(memo || {}, arg[k])
-      } else if (arg[k]) {
-        return arg[k]
-      } else {
-        return memo
-      }
-    }, undefined)
-
-    if (value !== undefined) {
-      keys.forEach(function(k) {
-        arg[k] = value
-      })
+    if (value !== undefined || opts.default) {
+      arg[key] = value || opts.default
     }
   }
 }
 
-function buildOpts(arg) {
+function argEventState(arg) {
   return arg.reduce(function(memo, arr) {
     var name = arr.shift()
     var desc = arr.shift()
@@ -64,4 +53,19 @@ function buildOpts(arg) {
 
     return memo
   }, {})
+}
+
+function mergeAliasValues(arg, keys) {
+  return keys.reduce(function(memo, k) {
+    if (Array.isArray(arg[k])) {
+      memo = !memo || Array.isArray(memo) ? memo : [memo]
+      return arg[k].concat(memo || [])
+    } else if (typeof arg[k] === "object") {
+      return Object.assign(memo || {}, arg[k])
+    } else if (arg[k]) {
+      return arg[k]
+    } else {
+      return memo
+    }
+  }, undefined)
 }

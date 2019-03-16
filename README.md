@@ -4,23 +4,26 @@
 
 ![args](args.gif)
 
-## Why
-
-Aside from aliasing arguments, `dot.args` makes argument information observable.
-
 ## Usage
 
 ```js
 var dot = require("dot-event")()
 require("@dot-event/args")(dot)
 
-dot("args", "myEvent", {
-  o: ["opt", "opts", "This is a description"],
-})
-
-dot.any("myEvent", function(prop, { o, opt, opts }) {
-  // o, opt, and opts should have same value
-})
+dot("args", "myEvent", [
+  [
+    "myOption",
+    "Description of myOption",
+    { alias: "m", default: "default value" },
+  ],
+])
 ```
 
 Call `dot.args` **before** defining the event.
+
+## What this does
+
+- Describes arguments
+- Aliases arguments
+- Sets default values
+- Makes argument info accessible
