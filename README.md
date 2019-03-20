@@ -10,13 +10,9 @@
 var dot = require("dot-event")()
 require("@dot-event/args")(dot)
 
-dot("args", "myEvent", [
-  [
-    "myOption",
-    "Description of myOption",
-    { alias: "m", default: "default value" },
-  ],
-])
+dot("args", "myEvent", {
+  myOption: { alias: "m", default: "default value" },
+})
 
 dot.any("myEvent", function(prop, arg) {
   expect(arg.myOption).toBe(true)

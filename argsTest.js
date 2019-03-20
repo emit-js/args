@@ -9,16 +9,17 @@ beforeEach(function() {
   args(dot)
 
   dot.args("test", {
-    arg: [
-      [
-        "a",
-        "This is a description",
-        { alias: "b", default: true },
-      ],
-    ],
+    a: {
+      alias: "b",
+    },
+  })
+  dot.args("test", {
+    a: {
+      default: true,
+    },
   })
   dot.args("test2", {
-    arg: [["c", "This is c description", { alias: ["d"] }]],
+    c: { alias: ["d"] },
   })
 })
 
@@ -28,13 +29,11 @@ test("state", function() {
       a: {
         alias: ["b"],
         default: true,
-        desc: "This is a description",
       },
     },
     test2: {
       c: {
         alias: ["d"],
-        desc: "This is c description",
       },
     },
   })

@@ -13,7 +13,23 @@ module.exports = function(dot) {
 
 function args(prop, arg, dot) {
   var event = prop[0]
-  dot.state.args[event] = argEventState(arg)
+  var state = dot.state.args
+
+  state[event] = state[event] || {}
+
+  var opts = state[event]
+
+  Object.keys(arg).forEach(function(key) {
+    opts[key] = opts[key] || {}
+    Object.assign(opts[key], arg[key])
+
+    var alias = opts[key].alias
+
+    if (alias && !Array.isArray(alias)) {
+      opts[key].alias = [alias]
+    }
+  })
+
   dot.any(event, aliasArgs)
 }
 
@@ -36,23 +52,6 @@ function aliasArgs(prop, arg, dot, eventId, signal) {
       arg[key] = value === undefined ? opts.default : value
     }
   }
-}
-
-function argEventState(arg) {
-  return arg.reduce(function(memo, arr) {
-    var name = arr[0]
-    var desc = arr[1]
-    var opts = arr[2] || {}
-    var alias = opts.alias
-
-    if (alias) {
-      opts.alias = Array.isArray(alias) ? alias : [alias]
-    }
-
-    memo[name] = Object.assign({ desc: desc }, opts)
-
-    return memo
-  }, {})
 }
 
 function mergeAliasValues(arg, keys) {
