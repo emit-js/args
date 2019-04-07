@@ -1,24 +1,24 @@
-# @dot-event/args
+# @emit-js/args
 
-[dot-event](https://github.com/dot-event/dot-event#readme) argument definitions
+[emit](https://github.com/emit-js/emit#readme) argument definitions
 
 ![args](args.gif)
 
 ## Usage
 
 ```js
-var dot = require("dot-event")()
-require("@dot-event/args")(dot)
+var emit = require("@emit-js/emit")()
+require("@emit-js/args")(emit)
 
-dot("args", "myEvent", {
+emit("args", "myEvent", {
   myOption: { alias: "m", default: "default value" },
 })
 
-dot.any("myEvent", function(prop, arg) {
+emit.any("myEvent", function(arg, prop) {
   expect(arg.myOption).toBe(true)
 })
 
-dot.myEvent({ m: true })
+emit.myEvent({ m: true })
 ```
 
 Always define args **before** defining the event.

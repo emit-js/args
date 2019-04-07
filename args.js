@@ -1,19 +1,19 @@
 /*prettier-ignore*/
 "use strict"
 
-module.exports = function(dot) {
-  if (dot.args) {
+module.exports = function(emit) {
+  if (emit.args) {
     return
   }
 
-  dot.state.args = {}
+  emit.state.args = {}
 
-  dot.any("args", args)
+  emit.any("args", args)
 }
 
-function args(prop, arg, dot) {
+function args(arg, prop, emit) {
   var event = prop[0]
-  var state = dot.state.args
+  var state = emit.state.args
 
   state[event] = state[event] || {}
 
@@ -30,11 +30,11 @@ function args(prop, arg, dot) {
     }
   })
 
-  dot.any(event, aliasArgs)
+  emit.any(event, aliasArgs)
 }
 
-function aliasArgs(prop, arg, dot, eventId, signal) {
-  var args = dot.state.args[eventId]
+function aliasArgs(arg, prop, emit, signal) {
+  var args = emit.state.args[signal.event]
 
   if (!args) {
     return
