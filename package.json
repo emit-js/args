@@ -6,7 +6,7 @@
     "@emit-js/emit",
     "argument"
   ],
-  "author": "emit <oss@emit-js.com>",
+  "author": "emit <emit@emit-js.com>",
   "main": "args.js",
   "repository": {
     "type": "git",
