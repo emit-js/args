@@ -3,7 +3,7 @@
   "version": "1.0.4",
   "description": "emit argument definitions",
   "keywords": [
-    "@emit-js/emit",
+    "emit",
     "argument"
   ],
   "author": "emit <emit@emit-js.com>",
